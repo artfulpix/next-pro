@@ -1,4 +1,6 @@
+import Link from "next/link";
 import UserTable from "./UserTable";
+import { Suspense } from "react";
 
 export type UserSortBy = "name" | "email" | "id";
 interface Props {
@@ -17,8 +19,13 @@ const UsersPage = async ({ searchParams: { sortBy } }: Props) => {
   const users: User[] = await res.json();
   return (
     <div>
+      <Link href="/users/new" className="tw-btn tw-btn-accent">
+        New User
+      </Link>
       <h1 className="tw-text-xl">UsersPage</h1>
-      <UserTable sortBy={sortBy} users={users} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <UserTable sortBy={sortBy} users={users} />
+      </Suspense>
     </div>
   );
 };
