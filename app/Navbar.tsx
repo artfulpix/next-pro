@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const { status, data: session } = useSession();
@@ -28,10 +28,14 @@ const Navbar = () => {
                 alt=""
                 className="tw-rounded-full"
               ></Image>
-              <Link href="/api/auth/signout">Log Out </Link>
+              <span className="tw-cursor-pointer" onClick={() => signOut()}>
+                Log Out{" "}
+              </span>
             </div>
           ) : (
-            <Link href="/api/auth/signin">Log In </Link>
+            <span className="tw-cursor-pointer" onClick={() => signIn()}>
+              Log In{" "}
+            </span>
           )}
         </div>
       </ul>
